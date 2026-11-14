@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp-token-audit"
+version = "0.1.0"
+description = "Measure how many tokens each MCP server's tool definitions add to every request in Claude Code, Codex, Gemini CLI and Cursor."
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [{name = "Mohammed Al-Saray"}]
+keywords = ["mcp", "model-context-protocol", "tokens", "context-window", "claude-code", "codex", "gemini-cli", "cursor", "audit"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Environment :: Console",
+]
+
+[project.urls]
+Homepage = "https://github.com/mohammed2345353/mcp-token-audit"
+Issues = "https://github.com/mohammed2345353/mcp-token-audit/issues"
+
+[project.scripts]
+mcp-token-audit = "mcp_token_audit.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
