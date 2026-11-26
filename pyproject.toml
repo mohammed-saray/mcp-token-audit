@@ -19,8 +19,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/mohammed2345353/mcp-token-audit"
-Issues = "https://github.com/mohammed2345353/mcp-token-audit/issues"
+Homepage = "https://github.com/mohammed-saray/mcp-token-audit"
+Issues = "https://github.com/mohammed-saray/mcp-token-audit/issues"
 
 [project.scripts]
 mcp-token-audit = "mcp_token_audit.cli:main"
