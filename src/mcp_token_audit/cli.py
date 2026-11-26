@@ -55,7 +55,8 @@ def main(argv=None) -> int:
             uniq.append(s)
         servers = [s for s in uniq if (not a.only or s.name in a.only) and (a.include_disabled or not s.disabled)]
         if not servers:
-            print("No MCP servers found. Looked in .mcp.json, ~/.claude.json, ~/.codex/config.toml, "
+            print("No MCP servers found. Looked in .mcp.json, Claude Desktop claude_desktop_config.json, "
+                  "~/.claude.json, ~/.codex/config.toml, "
                   ".gemini/settings.json, .cursor/mcp.json, .vscode/mcp.json.")
             return 0
         if a.dry_run:
