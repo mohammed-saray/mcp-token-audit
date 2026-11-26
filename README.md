@@ -63,6 +63,7 @@ mcp-token-audit --top 10              # show the 10 most expensive tools per ser
 | Client | Config |
 |---|---|
 | Claude Code | `.mcp.json`, `~/.claude.json` (user + per-project `mcpServers`) |
+| Claude Desktop | `<home>/AppData/Roaming/Claude/claude_desktop_config.json` (Windows), `<home>/Library/Application Support/Claude/claude_desktop_config.json` (macOS), `<home>/.config/Claude/claude_desktop_config.json` (Linux) |
 | Codex CLI | `~/.codex/config.toml` → `[mcp_servers.*]` |
 | Gemini CLI | `.gemini/settings.json`, `~/.gemini/settings.json` |
 | Cursor | `.cursor/mcp.json`, `~/.cursor/mcp.json` |

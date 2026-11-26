@@ -3,6 +3,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from mcp_token_audit.config import Server, _mini_toml, discover, from_file
 from mcp_token_audit.probe import probe, tool_cost
@@ -11,6 +12,21 @@ FAKE = str(Path(__file__).with_name("fake_server.py"))
 
 
 class ConfigTests(unittest.TestCase):
+    def test_discover_claude_desktop(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root, home = Path(tmp, "proj"), Path(tmp, "home")
+            paths = {
+                "win32": home / "AppData" / "Roaming" / "Claude" / "claude_desktop_config.json",
+                "darwin": home / "Library" / "Application Support" / "Claude" / "claude_desktop_config.json",
+                "linux": home / ".config" / "Claude" / "claude_desktop_config.json",
+            }
+            for platform, path in paths.items():
+                path.parent.mkdir(parents=True)
+                path.write_text(json.dumps({"mcpServers": {platform: {"command": platform}}}))
+                with self.subTest(platform=platform), patch("mcp_token_audit.config.sys.platform", platform):
+                    servers = discover(root, home)
+                self.assertEqual([(s.name, s.source) for s in servers], [(platform, "Claude Desktop")])
+
     def test_discover_all_sources(self):
         with tempfile.TemporaryDirectory() as tmp:
             root, home = Path(tmp, "proj"), Path(tmp, "home")

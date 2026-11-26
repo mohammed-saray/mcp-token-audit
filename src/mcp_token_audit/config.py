@@ -1,8 +1,9 @@
-"""Find MCP server definitions in Claude Code, Codex, Gemini CLI, Cursor and VS Code configs."""
+"""Find MCP server definitions in Claude, Codex, Gemini CLI, Cursor and VS Code configs."""
 from __future__ import annotations
 
 import json
 import re
+import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional
@@ -94,7 +95,11 @@ def discover(root: Path, home: Optional[Path] = None) -> List[Server]:
     home = home or Path.home()
     root = root.resolve()
     found: List[Server] = []
+    claude_desktop = (home / "AppData" / "Roaming" / "Claude" if sys.platform == "win32" else
+                      home / "Library" / "Application Support" / "Claude" if sys.platform == "darwin" else
+                      home / ".config" / "Claude") / "claude_desktop_config.json"
     for path, label in ((root / ".mcp.json", "Claude Code (project .mcp.json)"),
+                        (claude_desktop, "Claude Desktop"),
                         (root / ".cursor" / "mcp.json", "Cursor (project)"),
                         (home / ".cursor" / "mcp.json", "Cursor (global)"),
                         (root / ".gemini" / "settings.json", "Gemini CLI (project)"),
